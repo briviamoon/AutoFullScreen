@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const toggleAutoFullscreen = document.getElementById('toggleAutoFullscreen');
+	const toggleFullscreen = document.getElementById('toggleFullscreen');
 
 	chrome.storage.sync.get('autoFullscreenEnabled', function (data) {
-		toggleAutoFullscreen.checked = data.autoFullscreenEnabled;
+		toggleFullscreen.checked = data.autoFullscreenEnabled || false;
 	});
 
-	toggleAutoFullscreen.addEventListener('change', function () {
-		chrome.storage.sync.set({ autoFullscreenEnabled: toggleAutoFullscreen.checked });
+	toggleFullscreen.addEventListener('change', function () {
+		chrome.storage.sync.set({ autoFullscreenEnabled: toggleFullscreen.checked });
 	});
 });

@@ -16,12 +16,22 @@ function isVideo(element) {
 	return element.tagName.toLowerCase() === 'video';
 }
 
+// Function to check if a video is already in fullscreen mode
+function isVideoFullscreen(video) {
+	return (document.fullscreenElement === video ||
+		document.webkitFullscreenElement === video ||
+		document.mozFullScreenElement === video ||
+		document.msFullscreenElement === video);
+}
+
 // Function to handle video play event
 function handleVideoPlay(event) {
 	chrome.storage.sync.get('autoFullscreenEnabled', function (data) {
 		if (data.autoFullscreenEnabled) {
 			const video = event.target;
-			enterFullscreen(video);
+			if (!isVideoFullscreen(video)) {
+				enterFullscreen(video);
+			}
 		}
 	});
 }
