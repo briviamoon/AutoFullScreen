@@ -1,11 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const toggleFullscreen = document.getElementById('toggleFullscreen');
+	const autoFullscreenOn = document.getElementById('autoFullscreenOn');
+	const autoFullscreenOff = document.getElementById('autoFullscreenOff');
 
-	chrome.storage.sync.get('autoFullscreenEnabled', function (data) {
-		toggleFullscreen.checked = data.autoFullscreenEnabled || false;
+	// Function to update the UI based on stored value
+	function updateUI(value) {
+		if (value === 'on') {
+			autoFullscreenOn.checked = true;
+		} else {
+			autoFullscreenOff.checked = true;
+		}
+	}
+
+	// Retrieve stored value and update UI
+	chrome.storage.sync.get('autoFullscreen', function (data) {
+		const value = data.autoFullscreen || 'on'; // Default to 'on'
+		updateUI(value);
 	});
 
-	toggleFullscreen.addEventListener('change', function () {
-		chrome.storage.sync.set({ autoFullscreenEnabled: toggleFullscreen.checked });
+	// Event listener for radio button changes
+	autoFullscreenOn.addEventListener('change', function () {
+		if (autoFullscreenOn.checked) {
+			chrome.storage.sync.set({ autoFullscreen: 'on' });
+		}
+	});
+
+	autoFullscreenOff.addEventListener('change', function () {
+		if (autoFullscreenOff.checked) {
+			chrome.storage.sync.set({ autoFullscreen: 'off' });
+		}
 	});
 });

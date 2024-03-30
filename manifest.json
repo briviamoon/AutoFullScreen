@@ -5,7 +5,8 @@
 	"description": "Automatically enters fullscreen mode for videos on webpages if not already in fullscreen.",
 	"author": "Brivia Moon",
 	"permissions": [
-		"activeTab"
+		"activeTab",
+		"storage"
 	],
 	"background": {
 		"service_worker": "background.js"
